@@ -48,109 +48,108 @@ const StarryNight = () => {
       {/* Sky */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-black">
         {/* Stars */}
-        {stars
-          .map((star, index) => {
-            const isSelected = index === selectedStarIndex;
-            const starSize = isSelected ? 4 : star.size;
+        {stars.map((star, index) => {
+          const isSelected = index === selectedStarIndex;
+          const starSize = isSelected ? 4 : star.size;
 
-            return (
-              <div key={star.id} className="absolute">
-                {/* The star */}
-                <div
-                  className="absolute bg-white rounded-full"
-                  style={{
-                    left: `0`,
-                    top: `0`,
-                    width: `${starSize}px`,
-                    height: `${starSize}px`,
-                    transform: "translate(-50%, -50%)",
-                  }}
-                />
-
-                {/* Bracket around selected star */}
-                {isSelected && (
-                  <>
-                    {/* Left bracket [ */}
-                    <div
-                      className="absolute bg-white rounded-sm"
-                      style={{
-                        left: "-12px",
-                        top: "0",
-                        width: "2px",
-                        height: "10px",
-                        transform: "translateY(-50%)",
-                      }}
-                    />
-                    <div
-                      className="absolute bg-white rounded-sm"
-                      style={{
-                        left: "-12px",
-                        top: "-5px",
-                        width: "6px",
-                        height: "2px",
-                      }}
-                    />
-                    <div
-                      className="absolute bg-white rounded-sm"
-                      style={{
-                        left: "-12px",
-                        top: "5px",
-                        width: "6px",
-                        height: "2px",
-                      }}
-                    />
-
-                    {/* Right bracket ] */}
-                    <div
-                      className="absolute bg-white rounded-sm"
-                      style={{
-                        left: "10px",
-                        top: "0",
-                        width: "2px",
-                        height: "10px",
-                        transform: "translateY(-50%)",
-                      }}
-                    />
-                    <div
-                      className="absolute bg-white rounded-sm"
-                      style={{
-                        left: "6px",
-                        top: "-5px",
-                        width: "6px",
-                        height: "2px",
-                      }}
-                    />
-                    <div
-                      className="absolute bg-white rounded-sm"
-                      style={{
-                        left: "6px",
-                        top: "5px",
-                        width: "6px",
-                        height: "2px",
-                      }}
-                    />
-                  </>
-                )}
-              </div>
-            );
-          })
-          .map((starElement) => (
+          return (
             <div
-              key={starElement.key}
-              className="absolute"
+              key={star.id}
+              className="absolute cursor-pointer"
               style={{
-                left: `${stars[parseInt(starElement.key)].x}%`,
-                top: `${stars[parseInt(starElement.key)].y}%`,
+                left: `${star.x}%`,
+                top: `${star.y}%`,
+                // Create a larger invisible hit area for easier clicking
+                padding: "15px",
+                transform: "translate(-50%, -50%)",
               }}
+              onClick={() => setSelectedStarIndex(index)}
             >
-              {starElement}
+              {/* The visible star */}
+              <div
+                className="absolute bg-white rounded-full"
+                style={{
+                  left: "50%",
+                  top: "50%",
+                  width: `${starSize}px`,
+                  height: `${starSize}px`,
+                  transform: "translate(-50%, -50%)",
+                }}
+              />
+
+              {/* Bracket around selected star */}
+              {isSelected && (
+                <>
+                  {/* Left bracket [ */}
+                  <div
+                    className="absolute bg-white rounded-sm"
+                    style={{
+                      left: "calc(50% - 12px)",
+                      top: "50%",
+                      width: "2px",
+                      height: "10px",
+                      transform: "translateY(-50%)",
+                    }}
+                  />
+                  <div
+                    className="absolute bg-white rounded-sm"
+                    style={{
+                      left: "calc(50% - 12px)",
+                      top: "calc(50% - 5px)",
+                      width: "5px",
+                      height: "2px",
+                    }}
+                  />
+                  <div
+                    className="absolute bg-white rounded-sm"
+                    style={{
+                      left: "calc(50% - 12px)",
+                      top: "calc(50% + 5px)",
+                      width: "5px",
+                      height: "2px",
+                    }}
+                  />
+
+                  {/* Right bracket ] */}
+                  <div
+                    className="absolute bg-white rounded-sm"
+                    style={{
+                      left: "calc(50% + 10px)",
+                      top: "50%",
+                      width: "2px",
+                      height: "10px",
+                      transform: "translateY(-50%)",
+                    }}
+                  />
+                  <div
+                    className="absolute bg-white rounded-sm"
+                    style={{
+                      left: "calc(50% + 7px)",
+                      top: "calc(50% - 5px)",
+                      width: "5px",
+                      height: "2px",
+                    }}
+                  />
+                  <div
+                    className="absolute bg-white rounded-sm"
+                    style={{
+                      left: "calc(50% + 7px)",
+                      top: "calc(50% + 5px)",
+                      width: "5px",
+                      height: "2px",
+                    }}
+                  />
+                </>
+              )}
             </div>
-          ))}
+          );
+        })}
       </div>
 
       {/* Instructions */}
       <div className="absolute bottom-4 left-0 right-0 text-center text-white">
-        Use the left and right arrow keys to navigate between stars.
+        Use the left and right arrow keys to navigate between stars or click/tap
+        directly on any star.
       </div>
     </div>
   );
